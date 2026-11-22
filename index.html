@@ -1,0 +1,1895 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal Insight - Strategi Hukum yang Tepat, Masa Depan yang Lebih Terarah</title>
+    
+    <!-- Official Favicon -->
+    <link rel="icon" type="image/jpeg" href="assets/images/legal-insight-logo.jpeg">
+    <link rel="apple-touch-icon" href="assets/images/legal-insight-logo.jpeg">
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Playfair Display -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            DEFAULT: '#10243E',
+                            primary: '#10243E',
+                            dark: '#0B192D',
+                            secondary: '#193653',
+                            hover: '#0B192D'
+                        },
+                        gold: {
+                            DEFAULT: '#B99A62',
+                            hover: '#A7864E',
+                            light: '#F8F4EB',
+                            accent: '#C7AC77'
+                        },
+                        offwhite: '#F8F7F3',
+                        lightgray: '#F1F3F6',
+                        textdark: '#172033',
+                        textmuted: '#64748B',
+                        bordergray: '#E5E7EB',
+                        // Map amber to brand gold for backwards compatibility
+                        amber: {
+                            50: '#FBF9F5',
+                            100: '#F5EFE1',
+                            200: '#EBDDC1',
+                            300: '#DEC69B',
+                            400: '#CCA972',
+                            500: '#B99A62',
+                            600: '#A7864E',
+                            700: '#8A6D3A',
+                            800: '#6E552C',
+                            900: '#544021',
+                            DEFAULT: '#B99A62'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Georgia', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-white text-body-dark antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- PRELOADER / BRAND LOADING SCREEN -->
+    <div id="app-loading-screen" class="fixed inset-0 z-50 bg-white flex flex-col items-center justify-center transition-opacity duration-500">
+        <div class="text-center space-y-4">
+            <div class="bg-white p-4 rounded-3xl shadow-sm border border-brand inline-block">
+                <img src="assets/images/legal-insight-logo.jpeg" alt="Legal Insight" class="brand-logo-img h-20 w-auto mx-auto object-contain animate-pulse">
+            </div>
+            <div class="w-48 h-1 bg-slate-100 rounded-full mx-auto overflow-hidden">
+                <div class="h-full bg-gold rounded-full w-2/3 animate-pulse"></div>
+            </div>
+            <p class="text-[11px] uppercase tracking-widest text-slate-400 font-semibold font-mono">Memuat Platform Legal Insight...</p>
+        </div>
+    </div>
+
+
+
+    <!-- TOP ANNOUNCEMENT & ROLE PREVIEW BAR -->
+    <div class="bg-dark-navy text-white text-xs border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-between gap-2">
+            <!-- Left: Platform Certification -->
+            <div class="flex items-center gap-3">
+                <span class="flex items-center gap-1.5 font-bold tracking-wider text-gold">
+                    LEGAL INSIGHT INDONESIA
+                </span>
+            </div>
+
+            <!-- Right: Role Switcher with Dedicated Access Control -->
+            <div class="flex items-center gap-2">
+                <span class="text-slate-400 text-[11px] hidden md:inline">Mode Akses:</span>
+                <div class="bg-[#10243E] p-0.5 rounded-lg border border-slate-700 flex items-center">
+                    <button type="button" onclick="App.requestRoleSwitch('client')" data-role="client" 
+                        class="role-switch-btn px-2.5 py-1 rounded-md text-[11px] font-bold bg-gold text-white transition-all">
+                        Klien
+                    </button>
+                    <button type="button" onclick="App.requestRoleSwitch('advokat')" data-role="advokat" 
+                        class="role-switch-btn px-2.5 py-1 rounded-md text-[11px] font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-1.5" title="Akses Khusus Mitra Advokat">
+                        <span>Advokat</span>
+                        <span id="role-badge-advokat" class="text-[9px] font-mono px-1 py-0.2 rounded bg-slate-800 text-slate-400 border border-slate-700">Terkunci</span>
+                    </button>
+                    <button type="button" onclick="App.requestRoleSwitch('admin')" data-role="admin" 
+                        class="role-switch-btn px-2.5 py-1 rounded-md text-[11px] font-semibold text-slate-300 hover:text-white transition-all flex items-center gap-1.5" title="Akses Khusus Administrator">
+                        <span>Admin</span>
+                        <span id="role-badge-admin" class="text-[9px] font-mono px-1 py-0.2 rounded bg-slate-800 text-slate-400 border border-slate-700">Terkunci</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- MAIN NAVBAR (WHITE BACKGROUND, CLEAN NAVY TEXT, GOLD ACTIVE ACCENT) -->
+    <header class="bg-white border-b border-brand sticky top-0 z-40 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Left: Official Legal Insight Logo (with generous breathing room on the right) -->
+                <div class="flex items-center cursor-pointer shrink-0 pr-6 lg:pr-10" onclick="App.navigate('beranda')">
+                    <img src="assets/images/legal-insight-logo.jpeg" 
+                        alt="Legal Insight - Strategy & Foresight" 
+                        class="brand-logo-img h-12 sm:h-14 w-auto object-contain">
+                </div>
+
+                <!-- Desktop Navigation Links & Action Buttons (Right-aligned with spacious margin from logo) -->
+                <div class="hidden xl:flex items-center justify-end space-x-6 2xl:space-x-8 ml-auto">
+                    <nav class="flex items-center space-x-5 2xl:space-x-7 text-xs uppercase tracking-wider font-semibold ml-6 lg:ml-10">
+                        <a href="#beranda" data-page="beranda" class="nav-link active-nav py-2 text-navy">
+                            Beranda
+                        </a>
+                        <a href="#advokat" data-page="advokat" class="nav-link py-2 text-slate-600">
+                            Profil Advokat
+                        </a>
+                        <a href="#konsultasi" data-page="konsultasi" class="nav-link py-2 text-slate-600">
+                            Konsultasi Hukum
+                        </a>
+                        <a href="#dokumen" data-page="dokumen" class="nav-link py-2 text-slate-600">
+                            Dokumen Hukum
+                        </a>
+                        <a href="#edukasi" data-page="edukasi" class="nav-link py-2 text-slate-600">
+                            Edukasi Hukum
+                        </a>
+                        <a href="#academy" data-page="academy" class="nav-link py-2 text-slate-600">
+                            Legal Academy
+                        </a>
+                        <a href="#berita" data-page="berita" class="nav-link py-2 text-slate-600">
+                            Berita Hukum
+                        </a>
+                        <a href="#dashboard" data-page="dashboard" class="nav-link py-2 text-gold font-bold">
+                             Dashboard
+                        </a>
+                    </nav>
+
+                    <!-- Right Action Buttons: Login & Daftar -->
+                    <div id="nav-auth-buttons" class="flex items-center space-x-3 pl-4 border-l border-brand">
+                        <button type="button" onclick="App.openLoginModal()" 
+                            class="px-3.5 py-2 text-xs uppercase tracking-wider font-bold text-navy hover:text-gold transition-colors">
+                            Login
+                        </button>
+                        <button type="button" onclick="App.openRegisterModal()" 
+                            class="btn-navy px-4 py-2 rounded-xl text-xs uppercase tracking-wider shadow-xs">
+                            Daftar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+                <div class="xl:hidden flex items-center">
+                    <button type="button" id="btn-mobile-menu" class="p-2 rounded-lg text-navy hover:bg-slate-100 focus:outline-hidden" aria-label="Toggle Navigation">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer (Responsive) -->
+        <div id="mobile-menu-drawer" class="hidden xl:hidden bg-white border-t border-brand px-4 pt-3 pb-6 space-y-2 shadow-lg">
+            <a href="#beranda" data-page="beranda" class="nav-link block px-3 py-2 rounded-lg text-sm font-semibold text-navy hover:bg-off-white">Beranda</a>
+            <a href="#advokat" data-page="advokat" class="nav-link block px-3 py-2 rounded-lg text-sm font-semibold text-navy hover:bg-off-white">Profil Advokat</a>
+            <a href="#konsultasi" data-page="konsultasi" class="nav-link block px-3 py-2 rounded-lg text-sm font-semibold text-navy hover:bg-off-white">Konsultasi Hukum</a>
+            <a href="#dokumen" data-page="dokumen" class="nav-link block px-3 py-2 rounded-lg text-sm font-semibold text-navy hover:bg-off-white">Dokumen Hukum</a>
+            <a href="#edukasi" data-page="edukasi" class="nav-link block px-3 py-2 rounded-lg text-sm font-semibold text-navy hover:bg-off-white">Edukasi Hukum</a>
+            <a href="#academy" data-page="academy" class="nav-link block px-3 py-2 rounded-lg text-sm font-semibold text-navy hover:bg-off-white">Legal Academy</a>
+            <a href="#berita" data-page="berita" class="nav-link block px-3 py-2 rounded-lg text-sm font-semibold text-navy hover:bg-off-white">Berita Hukum</a>
+            <a href="#dashboard" data-page="dashboard" class="nav-link block px-3 py-2 rounded-lg text-sm font-bold text-gold bg-off-white"> Portal Dashboard</a>
+            
+            <div class="pt-4 border-t border-brand flex gap-3">
+                <button type="button" onclick="App.openLoginModal()" class="w-1/2 py-2.5 text-xs font-bold text-navy border border-brand rounded-xl hover:bg-off-white">
+                    Login
+                </button>
+                <button type="button" onclick="App.openRegisterModal()" class="btn-navy w-1/2 py-2.5 text-xs font-bold rounded-xl text-center">
+                    Daftar
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container"></div>
+
+    <!-- MAIN APP VIEWPORTS (SINGLE PAGE APPLICATION ROUTER) -->
+    <main class="flex-1">
+
+        <!-- ================================================================= -->
+        <!-- 1. HALAMAN UTAMA (HOMEPAGE) -->
+        <!-- ================================================================= -->
+        <section id="page-beranda" class="page-section">
+            <!-- HERO SECTION: OFF-WHITE BACKGROUND, NAVY HEADLINE, GOLD HIGHLIGHT, NAVY & OUTLINE BUTTONS -->
+            <div class="hero-watermark py-16 sm:py-24 px-4 sm:px-6 lg:px-8 border-b border-brand">
+                <div class="max-w-7xl mx-auto">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                        <!-- Hero Left Content -->
+                        <div class="lg:col-span-7 space-y-6">
+                            <!-- Refined Tag Badge -->
+                            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-brand text-gold text-xs font-bold shadow-xs">
+                                <span class="badge-pulse inline-block w-2 h-2 rounded-full bg-gold"></span>
+                                Platform Hukum Digital Terpadu di Indonesia
+                            </div>
+
+                            <!-- Exact Required Headline -->
+                            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight text-navy">
+                                Strategi Hukum yang Tepat,<br>
+                                <span class="text-gold">Masa Depan yang Lebih Terarah.</span>
+                            </h1>
+
+                            <!-- Exact Required Subheadline -->
+                            <p class="text-muted text-base sm:text-lg leading-relaxed max-w-2xl font-normal">
+                                Legal Insight hadir sebagai platform layanan hukum digital yang membantu masyarakat mendapatkan akses konsultasi, informasi, dan solusi hukum secara profesional.
+                            </p>
+
+                            <!-- Two Exact Required CTA Buttons -->
+                            <div class="flex flex-wrap items-center gap-4 pt-2">
+                                <button type="button" onclick="ConsultationModule.openWhatsApp()" 
+                                    class="btn-navy px-8 py-3.5 rounded-xl text-xs uppercase tracking-wider font-bold shadow-md">
+                                    Mulai Konsultasi (WhatsApp)
+                                </button>
+                                <button type="button" onclick="App.navigate('advokat')" 
+                                    class="btn-navy-outline px-8 py-3.5 rounded-xl text-xs uppercase tracking-wider font-bold">
+                                    Temukan Advokat
+                                </button>
+                            </div>
+
+                            <!-- Interactive Hero Search Bar -->
+                            <div class="pt-2 max-w-2xl">
+                                <div class="bg-white p-2 rounded-2xl border border-brand shadow-md flex flex-col sm:flex-row gap-2">
+                                    <div class="flex-1 flex items-center px-4 py-2 text-navy">
+                                        <svg class="w-4 h-4 text-gold mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                        </svg>
+                                        <input type="text" id="hero-search-input" 
+                                            placeholder="Cari solusi perkara: sengketa tanah, warisan, review kontrak, somasi..." 
+                                            class="w-full text-xs text-textdark placeholder-slate-400 focus:outline-hidden bg-transparent">
+                                    </div>
+                                    <button type="button" id="hero-search-btn" 
+                                        class="btn-navy px-6 py-2.5 rounded-xl text-xs font-bold tracking-wider shrink-0">
+                                        Cari Solusi
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Trust Metrics -->
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-brand">
+                                <div>
+                                    <p class="text-2xl font-extrabold text-navy">150+</p>
+                                    <p class="text-xs text-slate-500 font-medium">Advokat Mitra Resmi</p>
+                                </div>
+                                <div>
+                                    <p class="text-2xl font-extrabold text-navy">15.000+</p>
+                                    <p class="text-xs text-slate-500 font-medium">Konsultasi Selesai</p>
+                                </div>
+                                <div>
+                                    <p class="text-2xl font-extrabold text-gold">98.8%</p>
+                                    <p class="text-xs text-slate-500 font-medium">Tingkat Kepuasan Klien</p>
+                                </div>
+                                <div>
+                                    <p class="text-2xl font-extrabold text-navy">100%</p>
+                                    <p class="text-xs text-slate-500 font-medium">Kerahasiaan Terjamin</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hero Right Visual Card -->
+                        <div class="lg:col-span-5 relative">
+                            <div class="card-white rounded-3xl p-6 sm:p-8 space-y-6">
+                                <!-- Top Card Header with Official Emblem -->
+                                <div class="flex items-center justify-between pb-4 border-b border-brand">
+                                    <div class="flex items-center gap-3">
+                                        <img src="assets/images/legal-insight-logo.jpeg" 
+                                            alt="Legal Insight Emblem" 
+                                            class="brand-logo-img h-10 w-auto object-contain">
+                                        <div>
+                                            <h4 class="font-bold text-navy text-xs uppercase tracking-wider">Konsultasi Terverifikasi</h4>
+                                            <span class="text-[11px] text-emerald-700 flex items-center gap-1 font-semibold">
+                                                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Advokat Siap Berdiskusi
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <span class="text-[10px] font-mono font-bold text-navy bg-off-white px-2.5 py-1 rounded-md border border-brand">
+                                        Respon &lt; 15 Mnt
+                                    </span>
+                                </div>
+
+                                <!-- Mini Profile Card: Advokat Unggulan -->
+                                <div class="bg-off-white p-4 rounded-2xl border border-brand flex items-center gap-4">
+                                    <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=150&q=80" 
+                                        alt="Parulian Silallahi, S.H." 
+                                        class="w-14 h-14 rounded-xl object-cover border-2 border-gold shadow-xs">
+                                    <div class="flex-1">
+                                        <div class="flex justify-between items-start">
+                                            <h5 class="text-xs font-bold text-navy">Dian Parulian Silallahi, S.H.</h5>
+                                            <span class="text-emerald-700 text-xs font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">Mitra Aktif</span>
+                                        </div>
+                                        <p class="text-[11px] text-slate-500 font-medium">Hukum Bisnis Korporasi</p>
+                                        <div class="flex items-center gap-2 mt-1">
+                                            <span class="text-[10px] text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 font-semibold">
+                                                
+                                            </span>
+                                            <span class="badge-gold text-[10px] px-2 py-0.5 rounded font-semibold">
+                                                Samarinda, Kaltim
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Action Quick List -->
+                                <div class="space-y-2.5">
+                                    <button type="button" onclick="ConsultationModule.openWhatsApp()" 
+                                        class="btn-navy w-full py-3 px-4 rounded-xl text-xs uppercase tracking-wider flex items-center justify-between shadow-xs">
+                                        <span>Mulai Konsultasi via WhatsApp</span>
+                                        <span class="text-emerald-400 font-bold">→</span>
+                                    </button>
+                                    <button type="button" onclick="App.navigate('dokumen')" 
+                                        class="btn-navy-outline w-full py-3 px-4 rounded-xl text-xs uppercase tracking-wider flex items-center justify-between">
+                                        <span>Penyusunan & Tinjau Dokumen</span>
+                                        <span>→</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROFIL SINGKAT LEGAL INSIGHT & NILAI UTAMA (WHITE BACKGROUND) -->
+            <div class="py-20 bg-white border-b border-brand">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-3xl mx-auto text-center mb-14">
+                        <span class="badge-gold text-xs font-bold uppercase tracking-widest px-3.5 py-1 rounded-full">
+                            Tentang Legal Insight
+                        </span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-navy mt-3 mb-4">
+                            Mendekatkan Akses Keadilan & Tata Kelola Hukum Profesional
+                        </h2>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Legal Insight hadir menjembatani masyarakat, profesional, dan pelaku usaha di seluruh Indonesia dengan ekosistem hukum yang transparan, terukur, dan berstandar kode etik profesi advokat.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="card-white p-7 rounded-2xl text-center space-y-3">
+                            <div class="w-12 h-12 rounded-xl bg-gold-light text-gold flex items-center justify-center text-sm mx-auto font-mono font-bold border border-gold/30">
+                                01
+                            </div>
+                            <h3 class="text-base font-bold text-navy">Kerahasiaan Klien Penuh</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Seluruh komunikasi dan data perkara dilindungi prinsip fundamental <em>Attorney-Client Privilege</em> serta standar kerahasiaan profesi advokat.
+                            </p>
+                        </div>
+
+                        <div class="card-white p-7 rounded-2xl text-center space-y-3">
+                            <div class="w-12 h-12 rounded-xl bg-navy/5 text-navy flex items-center justify-center text-sm mx-auto font-mono font-bold border border-navy/10">
+                                02
+                            </div>
+                            <h3 class="text-base font-bold text-navy">Konsultasi Cepat & Responsif</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Terhubung langsung dengan tim advokat profesional melalui WhatsApp untuk respon cepat, pendampingan tanggap, dan kemudahan konsultasi perkara.
+                            </p>
+                        </div>
+
+                        <div class="card-white p-7 rounded-2xl text-center space-y-3">
+                            <div class="w-12 h-12 rounded-xl bg-slate-100 text-slate-800 flex items-center justify-center text-sm mx-auto font-mono font-bold border border-slate-200">
+                                03
+                            </div>
+                            <h3 class="text-base font-bold text-navy">Advokat Berlisensi Resmi</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Seluruh mitra telah disumpah di Pengadilan Tinggi dan mengantongi Nomor Induk Advokat (KTA) aktif dari organisasi resmi seperti PERADI dan KAI.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6 PILAR LAYANAN UTAMA (OFF-WHITE BACKGROUND) -->
+            <div class="py-20 bg-off-white border-b border-brand">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
+                        <div>
+                            <span class="text-xs font-bold text-gold uppercase tracking-widest">Katalog Layanan</span>
+                            <h2 class="text-2xl sm:text-3xl font-extrabold text-navy mt-1">
+                                Solusi Hukum Terlengkap dalam Satu Platform
+                            </h2>
+                        </div>
+                        <p class="text-slate-600 text-xs sm:text-sm max-w-md">
+                            Pilih layanan yang Anda butuhkan, mulai dari konsultasi tatap layar, penyusunan kontrak resmi, hingga pelatihan kompetensi hukum.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Card 1: Konsultasi Hukum -->
+                        <div class="card-white p-7 rounded-2xl flex flex-col justify-between group">
+                            <div>
+                                <div class="w-10 h-10 rounded-xl bg-navy/5 text-navy flex items-center justify-center text-xs font-mono font-bold tracking-wider mb-4 border border-navy/10 group-hover:bg-navy group-hover:text-gold transition-all">
+                                    01
+                                </div>
+                                <h3 class="text-lg font-bold text-navy mb-2 group-hover:text-gold transition-colors">
+                                    Konsultasi Hukum
+                                </h3>
+                                <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                    Konsultasikan masalah perdata, pidana, bisnis, atau sengketa keluarga via Chat Interaktif, Panggilan Video HD, atau Tatap Muka.
+                                </p>
+                            </div>
+                            <button type="button" onclick="ConsultationModule.openWhatsApp()" class="text-xs font-bold text-navy hover:text-emerald-600 flex items-center gap-1.5 pt-3 border-t border-slate-100 transition-colors">
+                                Konsultasi WhatsApp <span>→</span>
+                            </button>
+                        </div>
+
+                        <!-- Card 2: Profil Advokat -->
+                        <div class="card-white p-7 rounded-2xl flex flex-col justify-between group">
+                            <div>
+                                <div class="w-10 h-10 rounded-xl bg-gold/10 text-gold flex items-center justify-center text-xs font-mono font-bold tracking-wider mb-4 border border-gold/20 group-hover:bg-gold group-hover:text-white transition-all">
+                                    02
+                                </div>
+                                <h3 class="text-lg font-bold text-navy mb-2 group-hover:text-gold transition-colors">
+                                    Direktori Advokat Mitra
+                                </h3>
+                                <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                    Pelajari profil kompetensi, riwayat pendidikan, rekam jejak perkara, sertifikasi, dan jadwal ketersediaan advokat sebelum memilih.
+                                </p>
+                            </div>
+                            <button type="button" onclick="App.navigate('advokat')" class="text-xs font-bold text-navy hover:text-gold flex items-center gap-1.5 pt-3 border-t border-slate-100 transition-colors">
+                                Jelajahi Profil Advokat <span>→</span>
+                            </button>
+                        </div>
+
+                        <!-- Card 3: Dokumen Hukum -->
+                        <div class="card-white p-7 rounded-2xl flex flex-col justify-between group">
+                            <div>
+                                <div class="w-10 h-10 rounded-xl bg-navy/5 text-navy flex items-center justify-center text-xs font-mono font-bold tracking-wider mb-4 border border-navy/10 group-hover:bg-navy group-hover:text-gold transition-all">
+                                    03
+                                </div>
+                                <h3 class="text-lg font-bold text-navy mb-2 group-hover:text-gold transition-colors">
+                                    Layanan Dokumen Hukum
+                                </h3>
+                                <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                    Penyusunan baru dan peninjauan (review) kontrak kerja PKWT, NDA kerahasiaan, perjanjian kerjasama, somasi, dan legal opinion.
+                                </p>
+                            </div>
+                            <button type="button" onclick="App.navigate('dokumen')" class="text-xs font-bold text-navy hover:text-gold flex items-center gap-1.5 pt-3 border-t border-slate-100 transition-colors">
+                                Pesan Dokumen Hukum <span>→</span>
+                            </button>
+                        </div>
+
+                        <!-- Card 4: Edukasi Hukum -->
+                        <div class="card-white p-7 rounded-2xl flex flex-col justify-between group">
+                            <div>
+                                <div class="w-10 h-10 rounded-xl bg-navy/5 text-navy flex items-center justify-center text-xs font-mono font-bold tracking-wider mb-4 border border-navy/10 group-hover:bg-navy group-hover:text-gold transition-all">
+                                    04
+                                </div>
+                                <h3 class="text-lg font-bold text-navy mb-2 group-hover:text-gold transition-colors">
+                                    Edukasi & Glosarium Hukum
+                                </h3>
+                                <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                    Ketahui hak Anda melalui artikel panduan hukum bahasa awam, tanya-jawab perkara populer, dan kamus istilah hukum Indonesia.
+                                </p>
+                            </div>
+                            <button type="button" onclick="App.navigate('edukasi')" class="text-xs font-bold text-navy hover:text-gold flex items-center gap-1.5 pt-3 border-t border-slate-100 transition-colors">
+                                Baca Panduan Hukum <span>→</span>
+                            </button>
+                        </div>
+
+                        <!-- Card 5: Legal Academy -->
+                        <div class="card-white p-7 rounded-2xl flex flex-col justify-between group">
+                            <div>
+                                <div class="w-10 h-10 rounded-xl bg-gold/10 text-gold flex items-center justify-center text-xs font-mono font-bold tracking-wider mb-4 border border-gold/20 group-hover:bg-gold group-hover:text-white transition-all">
+                                    05
+                                </div>
+                                <h3 class="text-lg font-bold text-navy mb-2 group-hover:text-gold transition-colors">
+                                    Legal Academy & Pelatihan
+                                </h3>
+                                <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                    Pelatihan intensif dan sertifikasi kompetensi hukum praktis bagi HRD, corporate legal officer, notaris, dan pebisnis.
+                                </p>
+                            </div>
+                            <button type="button" onclick="App.navigate('academy')" class="text-xs font-bold text-navy hover:text-gold flex items-center gap-1.5 pt-3 border-t border-slate-100 transition-colors">
+                                Ikuti Pelatihan <span>→</span>
+                            </button>
+                        </div>
+
+                        <!-- Card 6: Berita & Analisis Regulasi -->
+                        <div class="card-white p-7 rounded-2xl flex flex-col justify-between group">
+                            <div>
+                                <div class="w-10 h-10 rounded-xl bg-navy/5 text-navy flex items-center justify-center text-xs font-mono font-bold tracking-wider mb-4 border border-navy/10 group-hover:bg-navy group-hover:text-gold transition-all">
+                                    06
+                                </div>
+                                <h3 class="text-lg font-bold text-navy mb-2 group-hover:text-gold transition-colors">
+                                    Berita Hukum & Regulasi
+                                </h3>
+                                <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                    Analisis putusan Mahkamah Agung & MK, regulasi perundang-undangan baru, peraturan menteri, dan perkembangan hukum nasional.
+                                </p>
+                            </div>
+                            <button type="button" onclick="App.navigate('berita')" class="text-xs font-bold text-navy hover:text-gold flex items-center gap-1.5 pt-3 border-t border-slate-100 transition-colors">
+                                Lihat Berita Terkini <span>→</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARA KERJA (ALUR 4 LANGKAH DENGAN BADGE NAVY & GOLD) -->
+            <div class="py-20 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-2xl mx-auto mb-16">
+                        <span class="badge-gold text-xs font-bold uppercase tracking-widest px-3.5 py-1 rounded-full">
+                            Alur Layanan
+                        </span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-navy mt-3">
+                            Bagaimana Cara Kerja di Legal Insight?
+                        </h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                        <div class="text-center space-y-3">
+                            <div class="w-14 h-14 rounded-2xl bg-navy text-gold font-extrabold text-xl flex items-center justify-center mx-auto shadow-md">
+                                01
+                            </div>
+                            <h4 class="font-bold text-navy text-base">Pilih Advokat Mitra</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Telusuri direktori berdasarkan keahlian perkara (pidana, bisnis, tanah, perdata) yang relevan dengan kebutuhan Anda.
+                            </p>
+                        </div>
+
+                        <div class="text-center space-y-3">
+                            <div class="w-14 h-14 rounded-2xl bg-navy text-gold font-extrabold text-xl flex items-center justify-center mx-auto shadow-md">
+                                02
+                            </div>
+                            <h4 class="font-bold text-navy text-base">Lihat Profil & Keahlian</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Pelajari rekam jejak, spesialisasi hukum, riwayat pendidikan, serta organisasi profesi advokat mitra pilihan Anda.
+                            </p>
+                        </div>
+
+                        <div class="text-center space-y-3">
+                            <div class="w-14 h-14 rounded-2xl bg-navy text-gold font-extrabold text-xl flex items-center justify-center mx-auto shadow-md">
+                                03
+                            </div>
+                            <h4 class="font-bold text-navy text-base">Hubungi via WhatsApp</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Terhubung langsung via WhatsApp resmi untuk konsultasi cepat, penyampaian pokok perkara, dan penjadwalan sesi.
+                            </p>
+                        </div>
+
+                        <div class="text-center space-y-3">
+                            <div class="w-14 h-14 rounded-2xl bg-gold text-white font-extrabold text-xl flex items-center justify-center mx-auto shadow-md">
+                                04
+                            </div>
+                            <h4 class="font-bold text-navy text-base">Sesi Advis & Solusi</h4>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                Dapatkan pendampingan hukum profesional, telaah kasus strategis, dan solusi hukum tepat sasaran dari advokat.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================================================================= -->
+        <!-- 2. PROFIL ADVOKAT (MENU & DIREKTORI) -->
+        <!-- ================================================================= -->
+        <section id="page-advokat" class="page-section hidden py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="mb-8">
+                <span class="badge-gold text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+                    Direktori Resmi
+                </span>
+                <h2 class="text-3xl font-extrabold text-navy mt-2 mb-2">
+                    Daftar Advokat Mitra Terverifikasi
+                </h2>
+                <p class="text-slate-600 text-sm max-w-2xl leading-relaxed">
+                    Setiap advokat telah melewati kurasi ketat, memiliki izin praktik resmi organisasi profesi, dan siap mendampingi persoalan hukum Anda di seluruh wilayah Kalimantan Timur secara profesional.
+                </p>
+            </div>
+
+            <!-- Filter Controls Bar -->
+            <div class="card-white p-5 rounded-2xl mb-8 flex flex-col md:flex-row gap-4 items-center justify-between">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 w-full md:w-auto flex-1">
+                    <!-- Filter Spesialisasi -->
+                    <div>
+                        <label class="block text-[11px] font-bold text-navy uppercase mb-1">Spesialisasi Hukum</label>
+                        <select id="filter-adv-spec" onchange="App.filterAdvocates()" class="w-full text-xs border border-brand rounded-xl px-3 py-2 bg-off-white text-navy font-medium focus:ring-2 focus:ring-gold">
+                            <option value="all">Semua Bidang Keahlian</option>
+                            <option value="Bisnis">Hukum Bisnis & Korporasi</option>
+                            <option value="Pidana">Hukum Pidana & Siber</option>
+                            <option value="Properti">Hukum Properti & Tanah</option>
+                            <option value="Ketenagakerjaan">Ketenagakerjaan & PHK</option>
+                            <option value="Keluarga">Hukum Keluarga & Waris</option>
+                            <option value="HAKI">Hak Kekayaan Intelektual</option>
+                        </select>
+                    </div>
+
+                    <!-- Filter Kota -->
+                    <div>
+                        <label class="block text-[11px] font-bold text-navy uppercase mb-1">Wilayah / Domisili Kaltim</label>
+                        <select id="filter-adv-city" onchange="App.filterAdvocates()" class="w-full text-xs border border-brand rounded-xl px-3 py-2 bg-off-white text-navy font-medium focus:ring-2 focus:ring-gold">
+                            <option value="all">Semua Wilayah Kalimantan Timur</option>
+                            <option value="Samarinda">Samarinda</option>
+                            <option value="Balikpapan">Balikpapan</option>
+                            <option value="IKN">IKN Nusantara</option>
+                            <option value="Kutai Kartanegara">Kutai Kartanegara</option>
+                            <option value="Bontang">Bontang</option>
+                        </select>
+                    </div>
+
+                    <!-- Filter Search Input -->
+                    <div>
+                        <label class="block text-[11px] font-bold text-navy uppercase mb-1">Cari Nama Advokat</label>
+                        <input type="text" id="filter-adv-search" oninput="App.filterAdvocates(this.value)" placeholder="Ketik nama atau kata kunci..." 
+                            class="w-full text-xs border border-brand rounded-xl px-3 py-2 bg-off-white text-navy focus:ring-2 focus:ring-gold">
+                    </div>
+                </div>
+
+                <button type="button" onclick="App.resetAdvocateFilter()" class="btn-navy-outline text-xs px-4 py-2 rounded-xl shrink-0">
+                    Reset Filter
+                </button>
+            </div>
+
+            <!-- Advocates Grid -->
+            <div id="advocates-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Dynamically rendered by app.js -->
+            </div>
+        </section>
+
+
+        <!-- ================================================================= -->
+        <!-- 3. KONSULTASI HUKUM (WIZARD & SESI KONSULTASI) -->
+        <!-- ================================================================= -->
+        <section id="page-konsultasi" class="page-section hidden py-12 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-10">
+            
+            <!-- HEADER -->
+            <div class="text-center max-w-2xl mx-auto">
+                <span class="badge-gold text-xs font-bold uppercase tracking-widest px-3.5 py-1 rounded-full">
+                    Layanan Konsultasi Cepat
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-navy font-serif mt-3 mb-2">
+                    Konsultasi Hukum Langsung via WhatsApp
+                </h2>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Terhubung langsung dengan tim advokat dan paralegal Legal Insight melalui saluran resmi WhatsApp kami. Sampaikan duduk perkara secara cepat, praktis, dan terjamin kerahasiaannya.
+                </p>
+            </div>
+
+            <!-- MAIN WHATSAPP HERO CARD -->
+            <div class="card-white p-6 sm:p-10 rounded-3xl border border-brand shadow-sm relative overflow-hidden">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                    <div class="md:col-span-8 space-y-4">
+                        <div class="flex items-center gap-2">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                WhatsApp Resmi Legal Insight • Online
+                            </span>
+                        </div>
+                        
+                        <h3 class="text-2xl font-bold text-navy">
+                            Chat Langsung dengan Tim Advokat Legal Insight
+                        </h3>
+                        
+                        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                            Tidak perlu proses registrasi yang rumit. Klik tombol WhatsApp di bawah untuk langsung terhubung dengan advokat atau paralegal bertugas. Anda dapat menyampaikan pertanyaan hukum, kronologi perkara, maupun mengirimkan berkas bukti dokumen.
+                        </p>
+
+                        <div class="flex flex-wrap items-center gap-4 pt-1 text-xs text-slate-500 font-medium">
+                            <span class="flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Respon Cepat (&lt; 5 Menit)
+                            </span>
+                            <span class="flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Kerahasiaan Klien Terjamin
+                            </span>
+                            <span class="flex items-center gap-1.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span> Advokat Berlisensi PERADI & KAI
+                            </span>
+                        </div>
+
+                        <div class="pt-3 flex flex-wrap gap-3">
+                            <button type="button" onclick="ConsultationModule.openWhatsApp()" 
+                                class="px-8 py-4 rounded-xl text-xs uppercase tracking-wider font-extrabold text-white bg-emerald-600 hover:bg-emerald-700 shadow-md flex items-center gap-2.5 transition-all hover:scale-[1.02]">
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                                </svg>
+                                <span>Hubungi via WhatsApp Sekarang</span>
+                            </button>
+                            <button type="button" onclick="App.navigate('advokat')" 
+                                class="btn-navy-outline px-6 py-4 rounded-xl text-xs uppercase tracking-wider font-bold">
+                                Pilih Advokat Spesifik
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-4 bg-off-white p-5 rounded-2xl border border-brand space-y-3">
+                        <span class="text-[10px] uppercase tracking-wider font-bold text-slate-400 block">Informasi Hotline Resmi</span>
+                        <div class="p-3 bg-white rounded-xl border border-brand space-y-1">
+                            <span class="text-[11px] text-slate-500 block">Nomor WhatsApp Resmi:</span>
+                            <a href="https://wa.me/6281234567890" target="_blank" class="text-base font-mono font-extrabold text-navy hover:text-emerald-600 block">
+                                +62 812-3456-7890
+                            </a>
+                        </div>
+                        <div class="p-3 bg-white rounded-xl border border-brand space-y-1">
+                            <span class="text-[11px] text-slate-500 block">Jam Operasional Layanan:</span>
+                            <span class="text-xs font-bold text-navy block">Senin – Minggu: 08.00 – 21.00 WIB</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 leading-tight">
+                            Layanan konsultasi online langsung ditangani advokat dan paralegal berpengalaman.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PILIH KATEGORI PERKARA (1-CLICK DIRECT KE WA) -->
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-bold text-navy">Pilih Kategori Permasalahan Hukum</h3>
+                        <p class="text-xs text-slate-500">Klik salah satu kategori di bawah untuk langsung terhubung ke WhatsApp dengan pesan yang sudah disesuaikan:</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <!-- Kategori 1 -->
+                    <div onclick="ConsultationModule.openWhatsApp({ category: 'Hukum Bisnis, Korporasi & Kontrak' })"
+                        class="card-white p-5 rounded-2xl border border-brand hover:border-emerald-500 hover:shadow-md cursor-pointer transition-all space-y-2 group">
+                        <div class="w-8 h-8 rounded-lg bg-navy/5 text-navy group-hover:bg-emerald-600 group-hover:text-white flex items-center justify-center font-mono font-bold text-xs transition-colors border border-navy/10">
+                            01
+                        </div>
+                        <h4 class="text-sm font-bold text-navy group-hover:text-emerald-700 transition-colors">Hukum Bisnis & Kontrak</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">Perjanjian kerjasama, sengketa pemegang saham, legalitas PT/CV, wanprestasi mitra bisnis.</p>
+                        <span class="text-[11px] font-bold text-emerald-600 flex items-center gap-1 pt-1">
+                            Konsultasi via WhatsApp <span>→</span>
+                        </span>
+                    </div>
+
+                    <!-- Kategori 2 -->
+                    <div onclick="ConsultationModule.openWhatsApp({ category: 'Hukum Pidana & Kejahatan Siber (UU ITE)' })"
+                        class="card-white p-5 rounded-2xl border border-brand hover:border-emerald-500 hover:shadow-md cursor-pointer transition-all space-y-2 group">
+                        <div class="w-8 h-8 rounded-lg bg-navy/5 text-navy group-hover:bg-emerald-600 group-hover:text-white flex items-center justify-center font-mono font-bold text-xs transition-colors border border-navy/10">
+                            02
+                        </div>
+                        <h4 class="text-sm font-bold text-navy group-hover:text-emerald-700 transition-colors">Pidana & Kejahatan Siber</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">Penipuan online, pencemaran nama baik UU ITE, pendampingan BAP kepolisian, laporan pidana.</p>
+                        <span class="text-[11px] font-bold text-emerald-600 flex items-center gap-1 pt-1">
+                            Konsultasi via WhatsApp <span>→</span>
+                        </span>
+                    </div>
+
+                    <!-- Kategori 3 -->
+                    <div onclick="ConsultationModule.openWhatsApp({ category: 'Sengketa Pertanahan & Properti' })"
+                        class="card-white p-5 rounded-2xl border border-brand hover:border-emerald-500 hover:shadow-md cursor-pointer transition-all space-y-2 group">
+                        <div class="w-8 h-8 rounded-lg bg-navy/5 text-navy group-hover:bg-emerald-600 group-hover:text-white flex items-center justify-center font-mono font-bold text-xs transition-colors border border-navy/10">
+                            03
+                        </div>
+                        <h4 class="text-sm font-bold text-navy group-hover:text-emerald-700 transition-colors">Pertanahan & Properti</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">Sengketa batas tanah, sertifikat ganda BPN, perjanjian jual beli tanah/rumah, sewa-menyewa.</p>
+                        <span class="text-[11px] font-bold text-emerald-600 flex items-center gap-1 pt-1">
+                            Konsultasi via WhatsApp <span>→</span>
+                        </span>
+                    </div>
+
+                    <!-- Kategori 4 -->
+                    <div onclick="ConsultationModule.openWhatsApp({ category: 'Ketenagakerjaan & Perselisihan PHK' })"
+                        class="card-white p-5 rounded-2xl border border-brand hover:border-emerald-500 hover:shadow-md cursor-pointer transition-all space-y-2 group">
+                        <div class="w-8 h-8 rounded-lg bg-navy/5 text-navy group-hover:bg-emerald-600 group-hover:text-white flex items-center justify-center font-mono font-bold text-xs transition-colors border border-navy/10">
+                            04
+                        </div>
+                        <h4 class="text-sm font-bold text-navy group-hover:text-emerald-700 transition-colors">Ketenagakerjaan & PHK</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">Perhitungan pesangon PP 35/2021, perselisihan bipartit/tripartit, kontrak PKWT, penahanan ijazah.</p>
+                        <span class="text-[11px] font-bold text-emerald-600 flex items-center gap-1 pt-1">
+                            Konsultasi via WhatsApp <span>→</span>
+                        </span>
+                    </div>
+
+                    <!-- Kategori 5 -->
+                    <div onclick="ConsultationModule.openWhatsApp({ category: 'Hukum Keluarga, Waris & Perceraian' })"
+                        class="card-white p-5 rounded-2xl border border-brand hover:border-emerald-500 hover:shadow-md cursor-pointer transition-all space-y-2 group">
+                        <div class="w-8 h-8 rounded-lg bg-navy/5 text-navy group-hover:bg-emerald-600 group-hover:text-white flex items-center justify-center font-mono font-bold text-xs transition-colors border border-navy/10">
+                            05
+                        </div>
+                        <h4 class="text-sm font-bold text-navy group-hover:text-emerald-700 transition-colors">Keluarga & Warisan</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">Gugatan perceraian, hak asuh anak, pembagian harta bersama (gono-gini), penetapan ahli waris.</p>
+                        <span class="text-[11px] font-bold text-emerald-600 flex items-center gap-1 pt-1">
+                            Konsultasi via WhatsApp <span>→</span>
+                        </span>
+                    </div>
+
+                    <!-- Kategori 6 -->
+                    <div onclick="ConsultationModule.openWhatsApp({ category: 'Hak Kekayaan Intelektual (Merek & Cipta)' })"
+                        class="card-white p-5 rounded-2xl border border-brand hover:border-emerald-500 hover:shadow-md cursor-pointer transition-all space-y-2 group">
+                        <div class="w-8 h-8 rounded-lg bg-navy/5 text-navy group-hover:bg-emerald-600 group-hover:text-white flex items-center justify-center font-mono font-bold text-xs transition-colors border border-navy/10">
+                            06
+                        </div>
+                        <h4 class="text-sm font-bold text-navy group-hover:text-emerald-700 transition-colors">Kekayaan Intelektual (HKI)</h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">Pendaftaran merek dagang DJKI, sengketa hak cipta, lisensi paten, somasi pelanggaran merek.</p>
+                        <span class="text-[11px] font-bold text-emerald-600 flex items-center gap-1 pt-1">
+                            Konsultasi via WhatsApp <span>→</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FORM RINGKAS PRA-KONSULTASI WA (KIRIM KRONOLOGI LANGSUNG KE WA) -->
+            <div class="card-white p-6 sm:p-8 rounded-3xl border border-brand space-y-6">
+                <div>
+                    <h3 class="text-lg font-bold text-navy mb-1">Formulir Pesan Konsultasi WhatsApp</h3>
+                    <p class="text-xs text-slate-500">Isi ringkasan di bawah ini untuk menghasilkan pesan terstruktur yang langsung siap dikirimkan ke WhatsApp resmi kami:</p>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-navy uppercase mb-1">Nama Lengkap / Username Anda</label>
+                            <input type="text" id="wa-form-name" placeholder="Nama Lengkap / Username Anda" 
+                                class="w-full text-sm border border-brand rounded-xl px-4 py-2.5 bg-off-white text-navy focus:ring-2 focus:ring-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-navy uppercase mb-1">Kategori Permasalahan</label>
+                            <select id="wa-form-category" class="w-full text-sm border border-brand rounded-xl px-4 py-2.5 bg-off-white text-navy focus:ring-2 focus:ring-emerald-500">
+                                <option value="Hukum Bisnis & Korporasi">Hukum Bisnis & Korporasi</option>
+                                <option value="Hukum Pidana & Kejahatan Siber">Hukum Pidana & Siber (UU ITE)</option>
+                                <option value="Hukum Pertanahan & Properti">Sengketa Tanah & Properti</option>
+                                <option value="Hukum Ketenagakerjaan & PHK">Ketenagakerjaan & PHK</option>
+                                <option value="Hukum Keluarga & Waris">Hukum Keluarga & Warisan</option>
+                                <option value="Hak Kekayaan Intelektual">Hak Kekayaan Intelektual (HKI)</option>
+                                <option value="Lainnya">Permasalahan Hukum Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-navy uppercase mb-1">Ringkasan Pertanyaan / Kronologi Masalah</label>
+                        <textarea id="wa-form-notes" rows="4" placeholder="Tuliskan gambaran singkat duduk perkara atau pertanyaan yang ingin Anda tanyakan kepada advokat..." 
+                            class="w-full text-sm border border-brand rounded-xl px-4 py-3 bg-off-white text-navy focus:ring-2 focus:ring-emerald-500"></textarea>
+                    </div>
+
+                    <div class="flex justify-end pt-2">
+                        <button type="button" onclick="ConsultationModule.submitWhatsAppForm()" 
+                            class="btn-navy px-8 py-3.5 rounded-xl text-xs uppercase tracking-wider font-extrabold shadow-md hover:bg-emerald-600 transition-colors">
+                            Kirim ke WhatsApp Sekarang
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 LANGKAH MUDAH KONSULTASI VIA WA -->
+            <div class="card-white p-6 rounded-2xl border border-brand">
+                <h4 class="text-xs font-bold text-navy uppercase tracking-wider text-center mb-6">Alur Konsultasi WhatsApp Legal Insight</h4>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
+                    <div class="space-y-2">
+                        <div class="w-10 h-10 rounded-full bg-navy text-gold font-bold flex items-center justify-center mx-auto text-sm">
+                            1
+                        </div>
+                        <h5 class="text-xs font-bold text-navy">Hubungi via WhatsApp</h5>
+                        <p class="text-[11px] text-slate-500">Klik tombol WhatsApp dan kirimkan ringkasan pertanyaan hukum Anda secara langsung.</p>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="w-10 h-10 rounded-full bg-navy text-gold font-bold flex items-center justify-center mx-auto text-sm">
+                            2
+                        </div>
+                        <h5 class="text-xs font-bold text-navy">Telaah Dokumen & Perkara</h5>
+                        <p class="text-[11px] text-slate-500">Kirimkan foto/file bukti dokumen pendukung kepada advokat melalui chat WA.</p>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="w-10 h-10 rounded-full bg-gold text-white font-bold flex items-center justify-center mx-auto text-sm">
+                            3
+                        </div>
+                        <h5 class="text-xs font-bold text-navy">Konsultasi Solutif</h5>
+                        <p class="text-[11px] text-slate-500">Dapatkan advis hukum, panggilan telepon, atau video call WA bersama advokat bertugas.</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- 4. LAYANAN DOKUMEN HUKUM -->
+        <!-- ================================================================= -->
+        <section id="page-dokumen" class="page-section hidden py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="mb-8">
+                <span class="badge-gold text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+                    Solusi Dokumen Korporasi & Pribadi
+                </span>
+                <h2 class="text-3xl font-extrabold text-navy mt-2 mb-2">
+                    Layanan Pembuatan & Peninjauan Dokumen Hukum
+                </h2>
+                <p class="text-slate-600 text-sm max-w-2xl leading-relaxed">
+                    Setiap draf disusun dan ditelaah oleh advokat spesialis berlisensi, disesuaikan dengan kebutuhan spesifik dan peraturan perundang-undangan Indonesia terbaru.
+                </p>
+            </div>
+
+            <!-- Category Filter Tabs -->
+            <div class="flex flex-wrap gap-2 mb-8">
+                <button type="button" data-category="all" class="doc-filter-btn btn-navy px-4 py-2 rounded-xl text-xs shadow-xs">
+                    Semua Jenis Dokumen
+                </button>
+                <button type="button" data-category="Ketenagakerjaan" class="doc-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-white text-navy border border-brand hover:bg-off-white transition-all">
+                    Ketenagakerjaan & HR
+                </button>
+                <button type="button" data-category="Bisnis" class="doc-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-white text-navy border border-brand hover:bg-off-white transition-all">
+                    Bisnis & Kerjasama (MoU/NDA)
+                </button>
+                <button type="button" data-category="Properti" class="doc-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-white text-navy border border-brand hover:bg-off-white transition-all">
+                    Properti & Pertanahan
+                </button>
+                <button type="button" data-category="Litigasi" class="doc-filter-btn px-4 py-2 rounded-xl text-xs font-bold bg-white text-navy border border-brand hover:bg-off-white transition-all">
+                    Somasi & Surat Teguran
+                </button>
+            </div>
+
+            <!-- Documents Catalog Grid -->
+            <div id="documents-catalog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamically rendered by documents.js -->
+            </div>
+        </section>
+
+
+        <!-- ================================================================= -->
+        <!-- 5. EDUKASI HUKUM & GLOSARIUM -->
+        <!-- ================================================================= -->
+        <section id="page-edukasi" class="page-section hidden py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="mb-10 text-center max-w-3xl mx-auto">
+                <span class="badge-gold text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+                    Literasi Hukum Masyarakat
+                </span>
+                <h2 class="text-3xl font-extrabold text-navy mt-2 mb-2">
+                    Edukasi Hukum & Tanya Jawab Populer
+                </h2>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Kumpulan artikel edukatif, panduan praktis menghadapi persoalan hukum sehari-hari, serta glosarium istilah hukum terlengkap.
+                </p>
+            </div>
+
+            <!-- Articles Grid -->
+            <div id="education-articles-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                <!-- Populated by app.js -->
+            </div>
+
+            <!-- Glosarium Hukum Section -->
+            <div class="bg-navy text-white rounded-3xl p-8 sm:p-10 border border-slate-800">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+                    <div>
+                        <span class="text-gold text-xs font-bold uppercase tracking-wider">Kamus Praktis</span>
+                        <h3 class="text-2xl font-bold text-white mt-1">Glosarium Istilah Hukum Indonesia</h3>
+                    </div>
+                    <div class="w-full md:w-72">
+                        <input type="text" oninput="App.renderGlossary(this.value)" placeholder="Cari istilah: wanprestasi, pmh, asas..." 
+                            class="w-full text-xs rounded-xl px-4 py-2.5 bg-dark-navy border border-slate-700 text-white placeholder-slate-400 focus:outline-hidden focus:border-gold">
+                    </div>
+                </div>
+
+                <div id="glossary-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Populated by app.js -->
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================================================================= -->
+        <!-- 6. LEGAL ACADEMY -->
+        <!-- ================================================================= -->
+        <section id="page-academy" class="page-section hidden py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="mb-10 text-center max-w-3xl mx-auto">
+                <span class="badge-gold text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+                    Pusat Pengembangan Kompetensi
+                </span>
+                <h2 class="text-3xl font-extrabold text-navy mt-2 mb-2">
+                    Legal Academy & Webinar Bersertifikat
+                </h2>
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Tingkatkan pemahaman dan keahlian hukum praktis Anda bersama advokat senior dan kurikulum terstruktur yang aplikatif untuk dunia kerja.
+                </p>
+            </div>
+
+            <div id="academy-courses-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Populated by app.js -->
+            </div>
+        </section>
+
+
+        <!-- ================================================================= -->
+        <!-- 7. BERITA HUKUM & REGULASI -->
+        <!-- ================================================================= -->
+        <section id="page-berita" class="page-section hidden py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <div class="mb-10">
+                <span class="badge-gold text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+                    Warta Hukum Nasional
+                </span>
+                <h2 class="text-3xl font-extrabold text-navy mt-2 mb-2">
+                    Berita Hukum & Analisis Regulasi Terbaru
+                </h2>
+                <p class="text-slate-600 text-sm max-w-2xl leading-relaxed">
+                    Pantau putusan persidangan penting, rilis undang-undang baru, dan kajian mendalam dari tim advokat mitra Legal Insight.
+                </p>
+            </div>
+
+            <div id="news-grid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Populated by app.js -->
+            </div>
+        </section>
+
+
+        <!-- ================================================================= -->
+        <!-- 8. DASHBOARD ADMIN, ADVOKAT, DAN KLIEN (NAVY SIDEBAR + OFF-WHITE CONTENT) -->
+        <!-- ================================================================= -->
+        <section id="page-dashboard" class="page-section hidden bg-off-white min-h-screen">
+            <div class="flex flex-col lg:flex-row min-h-screen">
+                
+                <!-- DASHBOARD SIDEBAR (NAVY BACKGROUND, WHITE TEXT, GOLD ACTIVE ACCENT) -->
+                <aside id="dashboard-sidebar" class="w-full lg:w-72 bg-dark-navy text-white p-6 flex flex-col justify-between shrink-0 border-r border-slate-800">
+                    <div class="space-y-6">
+                        <!-- Sidebar Logo Legal Insight -->
+                        <div class="pb-5 border-b border-slate-800/80">
+                            <div class="bg-white p-2.5 rounded-2xl flex items-center justify-center shadow-xs">
+                                <img src="assets/images/legal-insight-logo.jpeg" 
+                                    alt="Legal Insight Logo" 
+                                    class="brand-logo-img h-12 w-auto object-contain">
+                            </div>
+                        </div>
+
+                        <!-- Current Role Indicator -->
+                        <div class="bg-[#10243E] p-3.5 rounded-xl border border-slate-700/80">
+                            <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-medium">Peran Aktif:</span>
+                            <div class="flex items-center justify-between mt-1">
+                                <span id="dash-current-role-badge" class="text-xs font-bold text-gold">Klien / Pengguna</span>
+                                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                            </div>
+                        </div>
+
+                        <!-- Sidebar Nav Items -->
+                        <nav class="space-y-1.5 text-xs font-semibold">
+                            <!-- Klien Nav Links -->
+                            <a href="#dash-overview" onclick="DashboardModule.renderAll()" 
+                                class="dash-nav-item flex items-center px-4 py-3 rounded-xl bg-gold text-white font-bold transition-all text-xs tracking-wider uppercase" data-dash-role="client">
+                                Ikhtisar Konsultasi
+                            </a>
+                            <a href="#dash-cons" onclick="App.navigate('konsultasi')" 
+                                class="dash-nav-item flex items-center px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-[#10243E] transition-all text-xs font-semibold" data-dash-role="client">
+                                Pesan Konsultasi Baru
+                            </a>
+                            <a href="#dash-docs" onclick="App.navigate('dokumen')" 
+                                class="dash-nav-item flex items-center px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-[#10243E] transition-all text-xs font-semibold" data-dash-role="client">
+                                Pesan Dokumen Hukum
+                            </a>
+
+                            <!-- Advokat Nav Links -->
+                            <a href="#dash-overview" onclick="DashboardModule.renderAll()" 
+                                class="dash-nav-item flex items-center px-4 py-3 rounded-xl bg-gold text-white font-bold transition-all text-xs tracking-wider uppercase hidden" data-dash-role="advokat">
+                                Ikhtisar Perkara
+                            </a>
+                            <a href="#dash-schedule" onclick="App.showToast('Jadwal ketersediaan Anda telah disinkronkan.', 'info')" 
+                                class="dash-nav-item flex items-center px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-[#10243E] transition-all text-xs font-semibold hidden" data-dash-role="advokat">
+                                Kalender Ketersediaan
+                            </a>
+                            <a href="#dash-earnings" onclick="App.showToast('Laporan honorarium siap diunduh.', 'info')" 
+                                class="dash-nav-item flex items-center px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-[#10243E] transition-all text-xs font-semibold hidden" data-dash-role="advokat">
+                                Rekapitulasi Honorarium
+                            </a>
+
+                            <!-- Admin Nav Links -->
+                            <a href="#dash-overview" onclick="DashboardModule.renderAll()" 
+                                class="dash-nav-item flex items-center px-4 py-3 rounded-xl bg-gold text-white font-bold transition-all text-xs tracking-wider uppercase hidden" data-dash-role="admin">
+                                Metrik Platform
+                            </a>
+                            <a href="#dash-adv-manage" onclick="App.showToast('Verifikasi KTA advokat berjalan aktif.', 'info')" 
+                                class="dash-nav-item flex items-center px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-[#10243E] transition-all text-xs font-semibold hidden" data-dash-role="admin">
+                                Verifikasi Advokat
+                            </a>
+                            <a href="#dash-audit" onclick="App.showToast('Audit transaksi perbankan terenkripsi.', 'info')" 
+                                class="dash-nav-item flex items-center px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-[#10243E] transition-all text-xs font-semibold hidden" data-dash-role="admin">
+                                Audit Transaksi
+                            </a>
+                        </nav>
+                    </div>
+
+                    <!-- Sidebar Footer: Switch Role with Dedicated Access & Back to Site -->
+                    <div class="pt-6 border-t border-slate-800 space-y-3">
+                        <div>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="text-[10px] text-slate-400 font-semibold uppercase">Hak Akses Portal:</span>
+                                <span id="sidebar-role-indicator" class="text-[10px] font-mono text-gold font-bold">Klien</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-1 bg-[#10243E] p-1 rounded-xl">
+                                <button type="button" onclick="App.requestRoleSwitch('client')" data-sidebar-role="client" class="py-1 text-[10px] font-bold text-center rounded-lg hover:bg-slate-700 text-white transition-colors">
+                                    Klien
+                                </button>
+                                <button type="button" onclick="App.requestRoleSwitch('advokat')" data-sidebar-role="advokat" class="py-1 text-[10px] font-bold text-center rounded-lg hover:bg-slate-700 text-white transition-colors">
+                                    Advokat
+                                </button>
+                                <button type="button" onclick="App.requestRoleSwitch('admin')" data-sidebar-role="admin" class="py-1 text-[10px] font-bold text-center rounded-lg hover:bg-slate-700 text-white transition-colors">
+                                    Admin
+                                </button>
+                            </div>
+                            <div id="sidebar-lock-container" class="mt-2 hidden">
+                                <button type="button" onclick="App.lockCurrentRole()" class="w-full py-1.5 text-[11px] text-amber-200 hover:text-white bg-amber-950/40 hover:bg-amber-900/60 border border-amber-800/60 rounded-lg transition-all font-semibold">
+                                    Kunci Akses Khusus
+                                </button>
+                            </div>
+                        </div>
+
+                        <button type="button" onclick="App.navigate('beranda')" 
+                            class="w-full py-2.5 bg-slate-800/80 hover:bg-slate-800 text-white text-xs font-semibold rounded-xl transition-all text-center">
+                            ← Kembali ke Beranda
+                        </button>
+                    </div>
+                </aside>
+
+                <!-- DASHBOARD MAIN CONTENT (OFF-WHITE BACKGROUND, WHITE STAT CARDS, NAVY HEADINGS) -->
+                <div class="flex-1 p-6 sm:p-10 space-y-8">
+                    
+                    <!-- Dashboard Top Header Bar -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6 border-b border-brand">
+                        <div>
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <h2 class="text-2xl sm:text-3xl font-extrabold text-navy">Portal Dashboard Terpadu</h2>
+                                <span id="dash-access-badge" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-700 border border-slate-300">
+                                    Akses Klien
+                                </span>
+                            </div>
+                            <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Kelola sesi konsultasi, peninjauan dokumen perkara, dan administrasi akun.</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button type="button" onclick="DashboardModule.toggleMobileSidebar()" class="lg:hidden btn-navy px-3 py-2 text-xs rounded-xl">
+                                Menu Portal
+                            </button>
+                            <div class="card-white px-4 py-2 rounded-xl flex items-center gap-2.5">
+                                <span id="dashboard-user-initials" class="w-8 h-8 rounded-full bg-navy text-gold font-bold flex items-center justify-center text-xs">
+                                    LI
+                                </span>
+                                <div class="text-left">
+                                    <span id="dashboard-user-name" class="text-xs font-bold text-navy block leading-tight">Pengguna</span>
+                                    <span id="dashboard-user-role" class="text-[10px] text-slate-500">Terverifikasi</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VIEW 1: DASHBOARD KLIEN / PENGGUNA -->
+                    <div id="dash-view-client" class="space-y-8">
+                        <!-- Stat Cards (Pure White with border) -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                            <div class="card-white p-6 rounded-2xl">
+                                <span class="text-xs font-bold text-slate-500 uppercase block mb-1">Konsultasi Aktif</span>
+                                <div class="flex items-baseline gap-2">
+                                    <span id="client-metric-active-cons" class="text-3xl font-extrabold text-navy">0</span>
+                                    <span class="text-xs text-emerald-700 font-semibold">Sesi Siap</span>
+                                </div>
+                            </div>
+                            <div class="card-white p-6 rounded-2xl">
+                                <span class="text-xs font-bold text-slate-500 uppercase block mb-1">Dokumen Diproses</span>
+                                <div class="flex items-baseline gap-2">
+                                    <span id="client-metric-active-docs" class="text-3xl font-extrabold text-navy">0</span>
+                                    <span class="text-xs text-gold font-semibold">Pengerjaan</span>
+                                </div>
+                            </div>
+                            <div class="card-white p-6 rounded-2xl">
+                                <span class="text-xs font-bold text-slate-500 uppercase block mb-1">Total Transaksi</span>
+                                <span id="client-metric-total-spent" class="text-2xl font-extrabold text-navy">Rp 0</span>
+                            </div>
+                        </div>
+
+                        <!-- Consultations Section -->
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-lg font-bold text-navy">Jadwal & Sesi Konsultasi Anda</h3>
+                                <button type="button" onclick="App.navigate('konsultasi')" class="text-xs font-bold text-gold hover:underline">
+                                    + Pesan Sesi Baru
+                                </button>
+                            </div>
+                            <div id="client-consultations-list" class="space-y-3">
+                                <!-- Rendered by DashboardModule -->
+                            </div>
+                        </div>
+
+                        <!-- Documents Section -->
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-lg font-bold text-navy">Status Dokumen Hukum Anda</h3>
+                                <button type="button" onclick="App.navigate('dokumen')" class="text-xs font-bold text-gold hover:underline">
+                                    + Ajukan Dokumen Baru
+                                </button>
+                            </div>
+                            <div id="client-documents-list" class="space-y-3">
+                                <!-- Rendered by DashboardModule -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VIEW 2: DASHBOARD MITRA ADVOKAT -->
+                    <div id="dash-view-advocate" class="hidden space-y-8">
+                        <!-- Stat Cards -->
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                            <div class="card-white p-6 rounded-2xl">
+                                <span class="text-xs font-bold text-slate-500 uppercase block mb-1">Pendapatan Honorarium</span>
+                                <span id="adv-metric-earned" class="text-2xl font-extrabold text-navy">Rp 0</span>
+                            </div>
+                            <div class="card-white p-6 rounded-2xl">
+                                <span class="text-xs font-bold text-slate-500 uppercase block mb-1">Klien Terjadwal</span>
+                                <span id="adv-metric-clients" class="text-3xl font-extrabold text-navy">0</span>
+                            </div>
+                            <div class="card-white p-6 rounded-2xl">
+                                <span class="text-xs font-bold text-slate-500 uppercase block mb-1">Tugas Dokumen</span>
+                                <span id="adv-metric-docs" class="text-3xl font-extrabold text-gold">0</span>
+                            </div>
+                        </div>
+
+                        <!-- Incoming Consultations -->
+                        <div class="card-white rounded-2xl p-6">
+                            <h3 class="text-lg font-bold text-navy mb-4">Daftar Klien & Jadwal Konsultasi Masuk</h3>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="border-b border-brand text-xs font-bold text-navy uppercase bg-off-white">
+                                            <th class="py-3 px-4">No. Ref</th>
+                                            <th class="py-3 px-4">Klien</th>
+                                            <th class="py-3 px-4">Kasus / Masalah</th>
+                                            <th class="py-3 px-4">Jadwal & Metode</th>
+                                            <th class="py-3 px-4">Honorarium</th>
+                                            <th class="py-3 px-4">Status</th>
+                                            <th class="py-3 px-4 text-right">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="adv-consultations-list">
+                                        <!-- Populated by DashboardModule -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Assigned Document Tasks -->
+                        <div class="card-white rounded-2xl p-6">
+                            <h3 class="text-lg font-bold text-navy mb-4">Penugasan Drafting & Review Dokumen</h3>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="border-b border-brand text-xs font-bold text-navy uppercase bg-off-white">
+                                            <th class="py-3 px-4">ID Dokumen</th>
+                                            <th class="py-3 px-4">Judul Dokumen</th>
+                                            <th class="py-3 px-4">Nama Pemohon</th>
+                                            <th class="py-3 px-4">Jenis Layanan</th>
+                                            <th class="py-3 px-4">Progress</th>
+                                            <th class="py-3 px-4 text-right">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="adv-documents-table-body">
+                                        <!-- Populated by DashboardModule -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- VIEW 3: DASHBOARD ADMINISTRATOR PLATFORM -->
+                    <div id="dash-view-admin" class="hidden space-y-8">
+                        <!-- Stat Cards -->
+                        <div class="grid grid-cols-1 sm:grid-cols-4 gap-6">
+                            <div class="card-white p-6 rounded-2xl">
+                                <span class="text-xs font-bold text-slate-500 uppercase block mb-1">Total Pengguna</span>
+                                <span id="admin-metric-users" class="text-3xl font-extrabold text-navy">0</span>
+                            </div>
+                            <div class="card-white p-6 rounded-2xl">
+                                <span class="text-xs font-bold text-slate-500 uppercase block mb-1">Advokat Aktif</span>
+                                <span id="admin-metric-advocates" class="text-3xl font-extrabold text-navy">0</span>
+                            </div>
+                            <div class="card-white p-6 rounded-2xl">
+                                <span class="text-xs font-bold text-slate-500 uppercase block mb-1">Gross Transaksi</span>
+                                <span id="admin-metric-gross" class="text-2xl font-extrabold text-navy">Rp 0</span>
+                            </div>
+                            <div class="card-white p-6 rounded-2xl">
+                                <span class="text-xs font-bold text-slate-500 uppercase block mb-1">Revenue Platform</span>
+                                <span id="admin-metric-platform-fee" class="text-2xl font-extrabold text-gold">Rp 0</span>
+                            </div>
+                        </div>
+
+                        <!-- Admin Action Bar -->
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-lg font-bold text-navy">Manajemen Lisensi Advokat</h3>
+                            <button type="button" onclick="DashboardModule.openAddNewsModal()" 
+                                class="btn-navy px-4 py-2 text-xs rounded-xl shadow-xs">
+                                + Publikasikan Berita Baru
+                            </button>
+                        </div>
+
+                        <!-- Advocates Verification Table -->
+                        <div class="card-white rounded-2xl p-6">
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="border-b border-brand text-xs font-bold text-navy uppercase bg-off-white">
+                                            <th class="py-3 px-4">Advokat Mitra</th>
+                                            <th class="py-3 px-4">Spesialisasi</th>
+                                            <th class="py-3 px-4">Organisasi</th>
+                                            <th class="py-3 px-4">Wilayah</th>
+                                            <th class="py-3 px-4">Status Lisensi</th>
+                                            <th class="py-3 px-4 text-right">Verifikasi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-advocate-table-body">
+                                        <!-- Populated by DashboardModule -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Transaction Audit Table -->
+                        <div class="card-white rounded-2xl p-6">
+                            <h3 class="text-lg font-bold text-navy mb-4">Audit Pembayaran Platform</h3>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr class="border-b border-brand text-xs font-bold text-navy uppercase bg-off-white">
+                                            <th class="py-3 px-4">ID Transaksi</th>
+                                            <th class="py-3 px-4">Klien</th>
+                                            <th class="py-3 px-4">Advokat</th>
+                                            <th class="py-3 px-4">Total</th>
+                                            <th class="py-3 px-4">Metode</th>
+                                            <th class="py-3 px-4">Status</th>
+                                            <th class="py-3 px-4 text-right">Tanggal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="admin-transactions-table-body">
+                                        <!-- Populated by DashboardModule -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ================================================================= -->
+    <!-- MODAL 1: LOGIN (OFFICIAL LOGO, WHITE CARD, NAVY BUTTON, GOLD ACCENTS) -->
+    <!-- ================================================================= -->
+    <div id="login-modal" class="fixed inset-0 z-50 bg-navy/70 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+        <div class="card-white rounded-3xl max-w-md w-full p-8 relative animate-fadeIn space-y-6">
+            <button type="button" onclick="App.closeLoginModal()" 
+                class="absolute top-5 right-5 w-8 h-8 rounded-full bg-off-white hover:bg-slate-200 text-navy flex items-center justify-center text-sm font-bold transition-all">
+                &times;
+            </button>
+
+            <!-- Centered Official Logo -->
+            <div class="text-center pt-2">
+                <img src="assets/images/legal-insight-logo.jpeg" 
+                    alt="Legal Insight Official Logo" 
+                    class="brand-logo-img h-16 w-auto mx-auto object-contain mb-3">
+                <h3 class="text-xl font-extrabold text-navy">Masuk ke Legal Insight</h3>
+                <p class="text-xs text-slate-500 mt-1">Akses portal konsultasi dan layanan hukum Anda.</p>
+            </div>
+
+            <!-- Login Form -->
+            <form onsubmit="App.handleLogin(event)" class="space-y-4 text-left">
+                <div>
+                    <label class="block text-xs font-bold text-navy uppercase mb-1">Pilih Hak Akses / Portal</label>
+                    <select id="login-role" class="w-full text-xs border border-brand rounded-xl px-4 py-2.5 bg-off-white text-navy focus:ring-2 focus:ring-gold font-medium">
+                        <option value="client">Klien / Pengguna Umum</option>
+                        <option value="advokat">Mitra Advokat (Praktisi Hukum)</option>
+                        <option value="admin">Administrator Platform</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-navy uppercase mb-1">Email atau Username</label>
+                    <input type="text" id="login-email" required placeholder="Masukkan email atau username Anda" 
+                        class="w-full text-xs border border-brand rounded-xl px-4 py-3 bg-off-white focus:ring-2 focus:ring-gold text-navy">
+                </div>
+
+                <div>
+                    <div class="flex justify-between items-center mb-1">
+                        <label class="block text-xs font-bold text-navy uppercase">Kata Sandi</label>
+                        <a href="javascript:void(0)" onclick="App.showToast('Tautan reset password telah dikirim ke email.', 'info')" class="text-[11px] text-gold font-bold hover:underline">
+                            Lupa Sandi?
+                        </a>
+                    </div>
+                    <input type="password" id="login-password" required placeholder="••••••••" 
+                        class="w-full text-xs border border-brand rounded-xl px-4 py-3 bg-off-white focus:ring-2 focus:ring-gold text-navy">
+                </div>
+
+                <button type="submit" 
+                    class="btn-navy w-full py-3.5 rounded-xl text-xs uppercase tracking-wider font-extrabold shadow-md mt-2">
+                    Masuk Sekarang
+                </button>
+            </form>
+
+            <div class="pt-4 border-t border-brand text-center text-xs text-slate-600">
+                Belum memiliki akun? 
+                <button type="button" onclick="App.openRegisterModal()" class="text-gold font-bold hover:underline ml-1">
+                    Daftar di Sini
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- ================================================================= -->
+    <!-- MODAL 2: REGISTRASI (OFFICIAL LOGO, WHITE CARD, NAVY BUTTON, GOLD ACCENTS) -->
+    <!-- ================================================================= -->
+    <div id="register-modal" class="fixed inset-0 z-50 bg-navy/70 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+        <div class="card-white rounded-3xl max-w-md w-full p-8 relative animate-fadeIn space-y-6">
+            <button type="button" onclick="App.closeRegisterModal()" 
+                class="absolute top-5 right-5 w-8 h-8 rounded-full bg-off-white hover:bg-slate-200 text-navy flex items-center justify-center text-sm font-bold transition-all">
+                &times;
+            </button>
+
+            <!-- Centered Official Logo -->
+            <div class="text-center pt-2">
+                <img src="assets/images/legal-insight-logo.jpeg" 
+                    alt="Legal Insight Official Logo" 
+                    class="brand-logo-img h-16 w-auto mx-auto object-contain mb-3">
+                <h3 class="text-xl font-extrabold text-navy">Buat Akun Legal Insight</h3>
+                <p class="text-xs text-slate-500 mt-1">Daftar untuk konsultasi dan pembuatan dokumen hukum.</p>
+            </div>
+
+            <!-- Register Form -->
+            <form onsubmit="App.handleRegister(event)" class="space-y-4 text-left">
+                <div>
+                    <label class="block text-xs font-bold text-navy uppercase mb-1">Nama Lengkap / Username</label>
+                    <input type="text" id="reg-name" required placeholder="Masukkan nama lengkap atau username Anda" 
+                        class="w-full text-xs border border-brand rounded-xl px-4 py-2.5 bg-off-white focus:ring-2 focus:ring-gold text-navy">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-navy uppercase mb-1">Alamat Email</label>
+                    <input type="email" id="reg-email" required placeholder="nama@email.com" 
+                        class="w-full text-xs border border-brand rounded-xl px-4 py-2.5 bg-off-white focus:ring-2 focus:ring-gold text-navy">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-navy uppercase mb-1">Kata Sandi</label>
+                    <input type="password" id="reg-password" required placeholder="Minimal 8 karakter" 
+                        class="w-full text-xs border border-brand rounded-xl px-4 py-2.5 bg-off-white focus:ring-2 focus:ring-gold text-navy">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-navy uppercase mb-1">Daftar Sebagai</label>
+                    <select id="reg-role" class="w-full text-xs border border-brand rounded-xl px-4 py-2.5 bg-off-white text-navy focus:ring-2 focus:ring-gold font-medium">
+                        <option value="client">Klien / Pengguna Umum (Pencari Keadilan)</option>
+                        <option value="advokat">Mitra Advokat (Praktisi Hukum Berlisensi)</option>
+                    </select>
+                </div>
+
+                <button type="submit" 
+                    class="btn-navy w-full py-3.5 rounded-xl text-xs uppercase tracking-wider font-extrabold shadow-md mt-2">
+                    Daftar Akun Baru
+                </button>
+            </form>
+
+            <div class="pt-4 border-t border-brand text-center text-xs text-slate-600">
+                Sudah memiliki akun? 
+                <button type="button" onclick="App.switchToLogin()" class="text-gold font-bold hover:underline ml-1">
+                    Masuk di Sini
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- ================================================================= -->
+    <!-- MODAL KHUSUS: OTORISASI HAK AKSES MODE (ADVOKAT & ADMINISTRATOR) -->
+    <!-- ================================================================= -->
+    <div id="role-auth-modal" class="fixed inset-0 z-50 bg-navy/70 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+        <div class="card-white rounded-3xl max-w-md w-full p-8 relative animate-fadeIn space-y-6">
+            <button type="button" onclick="App.closeRoleAuthModal()" 
+                class="absolute top-5 right-5 w-8 h-8 rounded-full bg-off-white hover:bg-slate-200 text-navy flex items-center justify-center text-sm font-bold transition-all">
+                &times;
+            </button>
+
+            <!-- Centered Header -->
+            <div class="text-center pt-2">
+                <img src="assets/images/legal-insight-logo.jpeg" 
+                    alt="Legal Insight Official Logo" 
+                    class="brand-logo-img h-14 w-auto mx-auto object-contain mb-3">
+                <h3 id="role-auth-title" class="text-xl font-extrabold text-navy">Otorisasi Hak Akses</h3>
+                <p id="role-auth-subtitle" class="text-xs text-slate-500 mt-1">Masukkan kredensial otorisasi untuk membuka mode ini.</p>
+            </div>
+
+            <!-- Role Auth Form -->
+            <form onsubmit="App.verifyRoleAuth(event)" class="space-y-4 text-left">
+                <input type="hidden" id="role-auth-target" value="">
+
+                <div id="role-auth-id-container">
+                    <label id="role-auth-id-label" class="block text-xs font-bold text-navy uppercase mb-1">Nomor KTA / Email Terdaftar</label>
+                    <input type="text" id="role-auth-id" placeholder="Masukkan ID atau Email Anda" 
+                        class="w-full text-xs border border-brand rounded-xl px-4 py-3 bg-off-white focus:ring-2 focus:ring-gold text-navy">
+                </div>
+
+                <div>
+                    <label id="role-auth-pass-label" class="block text-xs font-bold text-navy uppercase mb-1">Kata Sandi / Kunci Otorisasi</label>
+                    <input type="password" id="role-auth-pass" required placeholder="••••••••" 
+                        class="w-full text-xs border border-brand rounded-xl px-4 py-3 bg-off-white focus:ring-2 focus:ring-gold text-navy">
+                </div>
+
+                <div id="role-auth-hint" class="p-3 bg-off-white border border-brand rounded-xl text-[11px] text-slate-600">
+                    <!-- Dynamic hints and guidance -->
+                </div>
+
+                <button type="submit" id="role-auth-btn"
+                    class="btn-navy w-full py-3.5 rounded-xl text-xs uppercase tracking-wider font-extrabold shadow-md mt-2">
+                    Verifikasi Hak Akses
+                </button>
+            </form>
+
+            <div class="pt-3 border-t border-brand text-center text-xs text-slate-500">
+                Sistem otorisasi berstandar enkripsi data Legal Insight Indonesia.
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- MODAL 3: DETAIL PROFIL ADVOKAT LENGKAP -->
+    <!-- ================================================================= -->
+    <div id="advocate-detail-modal" class="fixed inset-0 z-50 bg-navy/70 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+        <div class="card-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative animate-fadeIn">
+            <button type="button" onclick="App.closeAdvocateModal()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-dark-navy/80 hover:bg-dark-navy text-white flex items-center justify-center text-sm font-bold transition-all">
+                &times;
+            </button>
+            <div id="advocate-detail-content">
+                <!-- Dynamically rendered by app.js -->
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- ================================================================= -->
+    <!-- MODAL 4: PESAN LAYANAN DOKUMEN HUKUM -->
+    <!-- ================================================================= -->
+    <div id="document-order-modal" class="fixed inset-0 z-50 bg-navy/70 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+        <div class="card-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 relative animate-fadeIn space-y-6">
+            <button type="button" onclick="DocumentModule.closeOrderModal()" class="absolute top-6 right-6 w-9 h-9 rounded-full bg-off-white hover:bg-slate-200 text-navy flex items-center justify-center text-sm font-bold transition-all">
+                &times;
+            </button>
+
+            <div>
+                <span id="order-doc-category" class="badge-gold text-xs font-bold uppercase px-2.5 py-0.5 rounded-full"></span>
+                <h3 id="order-doc-title" class="text-2xl font-extrabold text-navy mt-2"></h3>
+                <p id="order-doc-desc" class="text-xs text-slate-500 mt-1"></p>
+            </div>
+
+            <!-- Service Choice: Drafting vs Review -->
+            <div class="grid grid-cols-2 gap-3">
+                <div id="opt-type-drafting" onclick="DocumentModule.setServiceType('drafting')" 
+                    class="p-4 rounded-2xl border-2 border-gold bg-gold-light ring-2 ring-gold/20 cursor-pointer">
+                    <h5 class="text-xs font-bold text-navy">Penyusunan Baru</h5>
+                    <p class="text-[11px] text-slate-600 mt-1">Disusun dari awal oleh advokat sesuai kebutuhan Anda.</p>
+                </div>
+                <div id="opt-type-review" onclick="DocumentModule.setServiceType('review')" 
+                    class="p-4 rounded-2xl border-2 border-brand bg-white hover:border-gold cursor-pointer">
+                    <h5 class="text-xs font-bold text-navy">Peninjauan (Review)</h5>
+                    <p class="text-[11px] text-slate-600 mt-1">Audit celah risiko pada draf kontrak yang sudah Anda miliki.</p>
+                </div>
+            </div>
+
+            <!-- Form Details -->
+            <div class="space-y-4 text-xs">
+                <div>
+                    <label class="block font-bold text-navy uppercase mb-1">Nama Pemohon / Perusahaan</label>
+                    <input type="text" id="order-client-name" placeholder="Nama Lengkap / Perusahaan Anda" 
+                        class="w-full border border-brand rounded-xl px-4 py-2.5 bg-off-white text-sm focus:ring-2 focus:ring-gold text-navy">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-bold text-navy uppercase mb-1">Nama Kontak PIC</label>
+                        <input type="text" id="order-contact-person" placeholder="Rian Hidayat" 
+                            class="w-full border border-brand rounded-xl px-4 py-2.5 bg-off-white text-sm text-navy">
+                    </div>
+                    <div>
+                        <label class="block font-bold text-navy uppercase mb-1">Email Aktif</label>
+                        <input type="email" id="order-email" placeholder="klien@perusahaan.com" 
+                            class="w-full border border-brand rounded-xl px-4 py-2.5 bg-off-white text-sm text-navy">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-navy uppercase mb-1">Kecepatan Pengerjaan</label>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div id="opt-speed-reguler" onclick="DocumentModule.setSpeed('reguler')" 
+                            class="p-3 rounded-xl border border-gold bg-gold-light cursor-pointer text-center">
+                            <span class="font-bold text-navy block">Reguler</span>
+                            <span class="text-[10px] text-slate-500">Sesuai standar (2-3 hari)</span>
+                        </div>
+                        <div id="opt-speed-express" onclick="DocumentModule.setSpeed('express')" 
+                            class="p-3 rounded-xl border border-brand bg-white hover:border-gold cursor-pointer text-center">
+                            <span class="font-bold text-navy block">Express</span>
+                            <span class="text-[10px] text-slate-500">Prioritas khusus (selesai 24 jam)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Upload Box -->
+                <div id="review-upload-box" class="hidden">
+                    <label class="block font-bold text-navy uppercase mb-1">Unggah Draf yang Ingin Ditinjau</label>
+                    <div class="border-2 border-dashed border-brand rounded-xl p-4 text-center bg-off-white">
+                        <span class="text-xs text-slate-600 block">Pilih file Word (.docx) atau PDF</span>
+                        <input type="file" class="mt-2 text-xs">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-bold text-navy uppercase mb-1">Klausul Khusus / Catatan Tambahan</label>
+                    <textarea id="order-notes" rows="3" placeholder="Sebutkan hal-hal khusus yang wajib dicantumkan dalam perjanjian..." 
+                        class="w-full border border-brand rounded-xl px-4 py-2.5 bg-off-white text-sm text-navy"></textarea>
+                </div>
+            </div>
+
+            <!-- Summary & Submit -->
+            <div class="p-4 bg-off-white rounded-2xl border border-brand flex justify-between items-center">
+                <div>
+                    <span class="text-[10px] text-slate-500 uppercase block font-semibold">Estimasi Waktu Pengerjaan:</span>
+                    <span id="order-summary-duration" class="text-sm font-bold text-navy block">Estimasi Selesai: 2-3 Hari Kerja</span>
+                </div>
+                <button type="button" onclick="DocumentModule.submitDocumentOrder()" 
+                    class="btn-navy px-6 py-3 rounded-xl text-xs uppercase tracking-wider font-bold shadow-md">
+                    Kirim Permintaan Dokumen →
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- ================================================================= -->
+    <!-- MODAL 5: RUANG KONSULTASI AKTIF (LIVE CHAT & LEGAL OPINION) -->
+    <!-- ================================================================= -->
+    <div id="consultation-room-modal" class="fixed inset-0 z-50 bg-navy/80 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4 hidden">
+        <div class="card-white rounded-3xl max-w-5xl w-full h-[90vh] flex flex-col overflow-hidden animate-fadeIn">
+            <!-- Room Header -->
+            <div class="p-4 bg-navy text-white flex items-center justify-between border-b border-slate-800">
+                <div class="flex items-center gap-3">
+                    <img src="assets/images/legal-insight-logo.jpeg" alt="Legal Insight" class="brand-logo-img h-9 w-auto bg-white p-1 rounded-lg">
+                    <div>
+                        <h4 id="room-advocate-name" class="font-bold text-sm text-white">Ruang Konsultasi</h4>
+                        <span id="room-session-method" class="text-[11px] text-slate-300"></span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <span id="room-session-status" class="px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"></span>
+                    <button type="button" onclick="ConsultationModule.startSimulatedVideoCall()" 
+                        class="btn-navy px-3.5 py-1.5 rounded-lg text-xs font-bold">
+                        Buka Video Call
+                    </button>
+                    <button type="button" onclick="ConsultationModule.closeConsultationRoom()" 
+                        class="w-8 h-8 rounded-lg bg-slate-800 hover:bg-slate-700 text-white flex items-center justify-center text-xs font-bold transition-all">
+                        &times;
+                    </button>
+                </div>
+            </div>
+
+            <!-- Room Body (Split Grid: Left Chat, Right Legal Opinion Memo) -->
+            <div class="flex-1 grid grid-cols-1 md:grid-cols-12 overflow-hidden">
+                <!-- Left: Chat Stream (7 Cols) -->
+                <div class="md:col-span-7 flex flex-col h-full border-r border-brand bg-off-white">
+                    <div id="room-messages-container" class="flex-1 p-4 overflow-y-auto space-y-2">
+                        <!-- Populated by consultation.js -->
+                    </div>
+
+                    <!-- Chat Input -->
+                    <div class="p-3 bg-white border-t border-brand flex items-center gap-2">
+                        <input type="text" id="input-room-chat" placeholder="Tuliskan pertanyaan hukum atau fakta tambahan..." 
+                            class="flex-1 text-xs border border-brand rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-gold text-navy">
+                        <button type="button" id="btn-send-room-chat" 
+                            class="btn-navy px-5 py-2.5 rounded-xl text-xs font-bold shadow-xs">
+                            Kirim
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right: Legal Opinion & Action Notes (5 Cols) -->
+                <div class="md:col-span-5 p-5 bg-white flex flex-col justify-between overflow-y-auto space-y-4">
+                    <div>
+                        <div class="flex justify-between items-center mb-2">
+                            <h4 class="text-xs font-bold text-navy uppercase tracking-wider">Catatan Pendapat Hukum (Legal Opinion)</h4>
+                            <span class="badge-gold text-[10px] px-2 py-0.5 rounded font-bold">
+                                Resmi Advokat
+                            </span>
+                        </div>
+                        <p class="text-[11px] text-slate-500 mb-3 leading-tight">
+                            Advokat mencatat ringkasan pertimbangan pasal, mitigasi risiko, dan rekomendasi langkah legal di bawah ini.
+                        </p>
+
+                        <textarea id="room-legal-opinion-text" rows="12" 
+                            class="w-full text-xs font-mono p-3 bg-off-white border border-brand rounded-xl leading-relaxed text-navy"
+                            placeholder="Catatan pendapat hukum akan muncul di sini..."></textarea>
+                    </div>
+
+                    <div class="space-y-2 pt-3 border-t border-brand">
+                        <button type="button" onclick="ConsultationModule.saveOpinionNotes()" 
+                            class="btn-navy-outline w-full py-2.5 text-xs rounded-xl">
+                            Simpan Catatan Perkara
+                        </button>
+                        <button type="button" onclick="ConsultationModule.printLegalOpinion()" 
+                            class="btn-gold w-full py-2.5 text-xs font-bold rounded-xl shadow-xs text-center">
+                            Cetak / Unduh Resume Pendapat Hukum (PDF)
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- ================================================================= -->
+    <!-- MODAL 6: SIMULASI VIDEO CALL -->
+    <!-- ================================================================= -->
+    <div id="video-call-simulation-modal" class="fixed inset-0 z-50 bg-navy/90 flex items-center justify-center p-4 hidden">
+        <div class="bg-dark-navy rounded-3xl border border-slate-800 max-w-3xl w-full p-6 text-white text-center space-y-6 relative">
+            <div class="flex justify-between items-center pb-3 border-b border-slate-800">
+                <span class="text-xs font-mono text-emerald-400 flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping"></span>
+                    Sesi Panggilan Video Terenkripsi (WebRTC HD)
+                </span>
+                <span class="text-xs font-mono text-slate-400">Durasi: 14:28</span>
+            </div>
+
+            <!-- Video Windows Mockup -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="h-64 bg-slate-950 rounded-2xl relative overflow-hidden border border-slate-800 flex items-center justify-center">
+                    <img src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover">
+                    <span class="absolute bottom-3 left-3 bg-dark-navy/80 px-2.5 py-1 rounded text-xs font-bold text-white">
+                        Advokat: Dr. Farhan Ramadhan, S.H.
+                    </span>
+                </div>
+                <div class="h-64 bg-slate-800 rounded-2xl relative overflow-hidden border border-slate-700 flex items-center justify-center">
+                    <div class="text-center">
+                        <div class="w-12 h-12 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center mx-auto mb-2 text-xs font-bold font-mono">
+                            KLIEN
+                        </div>
+                        <span class="text-xs font-semibold text-slate-300">Klien (Kamera Anda Aktif)</span>
+                    </div>
+                    <span id="video-user-name" class="absolute bottom-3 left-3 bg-dark-navy/80 px-2.5 py-1 rounded text-xs font-bold text-white">
+                        Anda
+                    </span>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex items-center justify-center gap-4 pt-2">
+                <button type="button" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300" title="Mute Mic">
+                    Mikrofon
+                </button>
+                <button type="button" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300" title="Matikan Kamera">
+                    Kamera
+                </button>
+                <button type="button" onclick="ConsultationModule.closeSimulatedVideoCall()" 
+                    class="px-6 py-3 rounded-full bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold uppercase tracking-wider shadow-lg">
+                    Akhiri Panggilan Video
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- PRINTABLE CONTAINER FOR LEGAL OPINION (PRINT MEDIA ONLY) -->
+    <div id="printable-legal-opinion"></div>
+
+
+    <!-- ================================================================= -->
+    <!-- FOOTER (DARK NAVY BACKGROUND, OFFICIAL LOGO, WHITE TEXT, GOLD ACCENTS) -->
+    <!-- ================================================================= -->
+    <footer class="bg-dark-navy text-slate-400 text-xs border-t border-slate-800 pt-16 pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-slate-800/80">
+                <!-- Col 1: Brand & Logo -->
+                <div class="md:col-span-5 space-y-4">
+                    <div class="bg-white p-3 rounded-2xl inline-block shadow-sm">
+                        <img src="assets/images/legal-insight-logo.jpeg" 
+                            alt="Legal Insight Official Logo" 
+                            class="brand-logo-img h-14 w-auto object-contain">
+                    </div>
+                    <p class="text-slate-300 leading-relaxed text-xs max-w-sm">
+                        Legal Insight adalah platform LegalTech penghubung temu konsultasi dan pengerjaan dokumen hukum antara masyarakat pencari keadilan dengan advokat independen yang berizin resmi di Indonesia.
+                    </p>
+                    <div class="p-3.5 bg-[#10243E] rounded-xl border border-slate-700/80 text-[11px] text-slate-300 leading-normal max-w-md">
+                        <strong class="text-gold">Disclaimer:</strong> Legal Insight memfasilitasi akses teknologi hukum dan bukan merupakan firma hukum (law firm). Seluruh nasihat hukum diberikan langsung oleh advokat mitra yang independen dan mematuhi kode etik profesi advokat.
+                    </div>
+                </div>
+
+                <!-- Col 2: Navigasi Menu -->
+                <div class="md:col-span-3 space-y-2">
+                    <h4 class="text-white font-bold uppercase tracking-wider text-xs mb-3">Menu Platform</h4>
+                    <ul class="space-y-2 font-medium">
+                        <li><a href="#beranda" onclick="App.navigate('beranda')" class="hover:text-gold transition-colors">Halaman Utama (Homepage)</a></li>
+                        <li><a href="#advokat" onclick="App.navigate('advokat')" class="hover:text-gold transition-colors">Direktori Advokat Mitra</a></li>
+                        <li><a href="#konsultasi" onclick="App.navigate('konsultasi')" class="hover:text-gold transition-colors">Konsultasi Hukum Online</a></li>
+                        <li><a href="#dokumen" onclick="App.navigate('dokumen')" class="hover:text-gold transition-colors">Layanan Dokumen Hukum</a></li>
+                        <li><a href="#edukasi" onclick="App.navigate('edukasi')" class="hover:text-gold transition-colors">Edukasi & Glosarium Hukum</a></li>
+                        <li><a href="#academy" onclick="App.navigate('academy')" class="hover:text-gold transition-colors">Legal Academy & Webinar</a></li>
+                        <li><a href="#berita" onclick="App.navigate('berita')" class="hover:text-gold transition-colors">Berita & Analisis Regulasi</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Layanan Bantuan & Akses Portal -->
+                <div class="md:col-span-4 space-y-3">
+                    <h4 class="text-white font-bold uppercase tracking-wider text-xs mb-3">Layanan Bantuan & Akses</h4>
+                    <p class="text-slate-300 text-xs leading-relaxed">
+                        Pusat layanan konsultasi hukum daring dan pemesanan dokumen legalitas terpadu di Indonesia.
+                    </p>
+                    <div class="bg-[#10243E] p-3.5 rounded-xl border border-slate-700/80 space-y-2 text-xs text-slate-300">
+                        <div class="flex items-center gap-2.5">
+                            <span class="text-gold"></span>
+                            <span>Kalimantan Timur, Indonesia</span>
+                        </div>
+                        <div class="flex items-center gap-2.5">
+                            <span class="text-gold"></span>
+                            <span>Senin – Minggu: 08.00 – 21.00 WIB</span>
+                        </div>
+                        <div class="flex items-center gap-2.5">
+                            <span class="text-gold"></span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="pt-2 flex gap-3">
+                        <button type="button" onclick="App.openLoginModal()" class="btn-navy-outline px-4 py-2 text-xs rounded-xl border-slate-600 text-slate-200 hover:text-white">
+                            Login Portal
+                        </button>
+                        <button type="button" onclick="App.openRegisterModal()" class="btn-navy px-4 py-2 text-xs rounded-xl">
+                            Daftar Akun
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] text-slate-500">
+                <p>© 2026 Legal Insight Indonesia. Seluruh hak cipta dilindungi undang-undang.</p>
+                <div class="flex gap-4">
+                    <span>Syarat & Ketentuan</span>
+                    <span>Kebijakan Privasi (UU PDP)</span>
+                    <span>Standar Etik Advokat</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT BUNDLE -->
+    <script src="js/data.js"></script>
+    <script src="js/consultation.js"></script>
+    <script src="js/documents.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- FLOATING WHATSAPP CONSULTATION BUTTON -->
+    <div id="floating-whatsapp-btn" class="fixed bottom-6 right-6 z-40 flex items-center gap-2.5">
+        <span class="hidden sm:inline-block bg-white text-navy text-xs font-bold px-3 py-1.5 rounded-full shadow-lg border border-brand">
+            Konsultasi WhatsApp
+        </span>
+        <button type="button" onclick="ConsultationModule.openWhatsApp()" 
+            class="w-14 h-14 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white flex items-center justify-center shadow-xl hover:scale-105 transition-all focus:outline-hidden"
+            title="Chat Konsultasi WhatsApp">
+            <svg class="w-7 h-7 fill-current" viewBox="0 0 24 24">
+                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+            </svg>
+        </button>
+    </div>
+    
+</body>
+</html>
